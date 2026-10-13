@@ -4,33 +4,37 @@ import Profile from "./Profile";
 import Settings from "./Settings";
 
 const TabForm = () => {
-  const [tabName, setTabName] = useState("");
+  const [activeTab, setActiveTab] = useState("");
 
   const tabform = [
     {
+      id: 1,
       name: "Profile",
       component: Profile,
     },
     {
+      id: 2,
       name: "Interests",
       component: Interests,
     },
     {
+      id: 3,
       name: "Settings",
       component: Settings,
     },
   ];
 
-  console.log(tabName);
+  const SelectedComponent = tabform[activeTab - 1]?.component;
+
   return (
     <div className="tabform">
       <ul>
         {tabform.map((t) => {
           return (
-            <li>
+            <li key={t.id}>
               <a
                 onClick={() => {
-                  setTabName(t.name);
+                  setActiveTab(t.id);
                 }}
               >
                 {t.name}
@@ -39,6 +43,7 @@ const TabForm = () => {
           );
         })}
       </ul>
+      <div className="tabBody">{activeTab && <SelectedComponent />}</div>
     </div>
   );
 };
